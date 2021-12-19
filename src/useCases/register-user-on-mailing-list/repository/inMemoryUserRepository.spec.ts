@@ -4,8 +4,8 @@ import { InMemoryUserRepository } from './inMemoryUserRepository'
 describe('In memony user Repository', () => {
     test('Should returns null if user is not found', async () => {
         const users: UserData[] = []
-        const userRepo = new InMemoryUserRepository(users)
-        const user = await userRepo.findUserByEmail('any@email.com')
+        const sut = new InMemoryUserRepository(users)
+        const user = await sut.findUserByEmail('any@email.com')
         expect(user).toBeNull()
     })
 
@@ -13,9 +13,9 @@ describe('In memony user Repository', () => {
         const users: UserData[] = []
         const name = 'any_name'
         const email = 'any@email.com'
-        const userRepo = new InMemoryUserRepository(users)
-        await userRepo.add({ name, email })
-        const user = await userRepo.findUserByEmail(email)
+        const sut = new InMemoryUserRepository(users)
+        await sut.add({ name, email })
+        const user = await sut.findUserByEmail(email)
         expect(user.name).toBe(name)
         expect(user.email).toBe(email)
     })
@@ -25,8 +25,8 @@ describe('In memony user Repository', () => {
             { name: 'any_name', email: 'any@email.com '}, 
             { name: 'second_name', email: 'second@email.com'}
         ]
-        const userRepo  = new InMemoryUserRepository(users)
-        const returnedUsers = userRepo.findAllUsers()
+        const sut = new InMemoryUserRepository(users)
+        const returnedUsers = sut.findAllUsers()
         expect((await returnedUsers).length).toBe(2)
     })
 })

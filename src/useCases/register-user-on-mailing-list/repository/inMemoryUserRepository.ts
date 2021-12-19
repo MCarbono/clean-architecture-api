@@ -2,7 +2,6 @@ import { UserRepository } from "../../ports/userRepository";
 import { UserData } from "../userData";
 
 export class InMemoryUserRepository implements UserRepository {
-
     private repository: UserData[]
 
     constructor(repository: UserData[]){
@@ -15,9 +14,8 @@ export class InMemoryUserRepository implements UserRepository {
     }
 
     async findUserByEmail(email: string): Promise<UserData> {
-        const users = await this.repository.filter(user => user.email === email)
-        if(users.length) return users[0]
-        return null;
+        const users = await this.repository.find(user => user.email === email)
+        return users || null;
     }
 
     async findAllUsers(): Promise<UserData[]> {
