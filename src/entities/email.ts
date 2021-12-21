@@ -10,7 +10,7 @@ export class Email {
     public readonly value: string;
 
     private constructor(email: string) {
-        this.value = email;
+        this.value = email
     }
 
     static validate(email: string) {
