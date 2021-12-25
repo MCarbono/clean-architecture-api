@@ -1,5 +1,5 @@
-import { Either, right, left } from "../shared/either";
-import { InvalidEmailError } from "./errors/invalidEmailError";
+import { Either, right, left } from "@/shared";
+import { InvalidEmailError } from "@/entities/errors";
 
 export class Email {
     static TOTAL_EMAIL_LENGTH: number = 320;
@@ -35,6 +35,6 @@ export class Email {
 
     static create(email: string): Either<InvalidEmailError, Email>  {
         if(Email.validate(email)) return right(new Email(email))
-        return left(new InvalidEmailError())
+        return left(new InvalidEmailError(email))
     }
 }

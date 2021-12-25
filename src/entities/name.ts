@@ -1,5 +1,5 @@
-import { Either, left, right } from "../shared/either";
-import { InvalidNameError } from "./errors/invalidNameError";
+import { Either, left, right } from "@/shared";
+import { InvalidNameError } from "@/entities/errors";
 
 export class Name {
     public readonly value: string;
@@ -17,7 +17,7 @@ export class Name {
     }
 
     public static create(name: string): Either<InvalidNameError, Name> {
-        if(!Name.validate(name)) return left(new InvalidNameError())
+        if(!Name.validate(name)) return left(new InvalidNameError(name))
         return right(new Name(name))
     }
 }

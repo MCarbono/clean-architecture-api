@@ -1,9 +1,6 @@
-import { UserData } from "./userData";
-import { Either, left, right } from "../shared/either";
-import { InvalidEmailError } from "./errors/invalidEmailError";
-import { InvalidNameError } from "./errors/invalidNameError";
-import { Name } from "./name";
-import { Email } from "./email";
+import { UserData, Name, Email } from "@/entities";
+import { Either, left, right } from "@/shared";
+import { InvalidEmailError, InvalidNameError } from "@/entities/errors";
 
 
 export class User {
@@ -17,10 +14,10 @@ export class User {
 
     static create(userData: UserData): Either<InvalidEmailError | InvalidNameError, User> {
         const nameOrError = Name.create(userData.name)
-        if(nameOrError.isLeft()) return left(new InvalidNameError())
+        if(nameOrError.isLeft()) return left(nameOrError.value)
 
         const emailOrError = Email.create(userData.email)
-        if(emailOrError.isLeft()) return left(new InvalidEmailError())
+        if(emailOrError.isLeft()) return left(emailOrError.value)
 
         const name: Name = nameOrError.value as Name
         const email: Email = emailOrError.value as Email;

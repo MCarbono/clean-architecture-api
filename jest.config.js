@@ -5,7 +5,7 @@
 
 module.exports = {
   roots: [
-    '<rootDir>/src'
+    '<rootDir>/test'
   ],
 
   // All imported modules in your tests should be mocked automatically
@@ -24,7 +24,7 @@ module.exports = {
   collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts', '!**/test/**', '!**/config/**'],
+  collectCoverageFrom: ['<rootDir>/test/**/*.ts', '!**/test/**', '!**/config/**'],
 
   // The directory where Jest should output its coverage files
   // eslint-disable-next-line quotes
@@ -86,7 +86,10 @@ module.exports = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@test/(.*)$': '<rootDir>/test/$1'
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
