@@ -9,7 +9,7 @@ describe('Mongodb User repository', () => {
         await MongoHelper.disconnect()
     })
     beforeEach(async () => {
-        MongoHelper.clearCollection('users');
+       await MongoHelper.clearCollection('users');
     })
 
     test('When user is added, it should exist', async () => {
