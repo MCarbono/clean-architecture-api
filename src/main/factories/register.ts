@@ -3,11 +3,15 @@ import { RegisterUserOnMailingList } from "@/useCases/register-user-on-mailing-l
 import { RegisterAndSendEmail } from "@/useCases/registerAndSendEmail"
 import { SendEmail } from "@/useCases/send-email";
 import { MongodbUserRepository } from "@/external/repositories/mongodb";
+import { NodemailerEmailService } from "@/external/mailServices/nodemailerEmailService";
+import { getEmailOptions } from "../config/emailConfig";
 
-export const makeRegisterUserController = (): RegisterAndSendEmailController => {
+export const makeRegisterAndSendEmailController = (): RegisterAndSendEmailController => {
     const mongodbUserRepository = new MongodbUserRepository()
     const registerUserOnMailingList = new RegisterUserOnMailingList(mongodbUserRepository)
-    //const sendEmail = new SendEmail()
-    const registerAndSendEmailController = new RegisterAndSendEmailController(registerUserOnMailingList)
+    const emailService = new NodemailerEmailService()
+    const sendEmailUseCase = new SendEmail(getEmailOptions(), emailService)
+    const registerAndSendEmailUseCase = new RegisterAndSendEmail(registerUserOnMailingList, sendEmailUseCase)
+    const registerAndSendEmailController = new RegisterAndSendEmailController(registerAndSendEmailUseCase)
     return registerAndSendEmailController
 }
