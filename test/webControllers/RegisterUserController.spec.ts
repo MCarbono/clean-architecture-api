@@ -63,7 +63,7 @@ describe('Register user web controller', () => {
 
     const errorThrowingUseCaseStub: UseCase = new ErrorThrowingUseCaseStub()
 
-    test('Should return status code 201 when request contains valid user data', async () => {
+    test('Should return status code ok when request contains valid user data', async () => {
         const request: HttpRequest = {
             body: {
                 email: 'any@email.com',
@@ -71,7 +71,7 @@ describe('Register user web controller', () => {
             }
         }
         const response: HttpResponse = await controller.handle(request)
-        expect(response.statusCode).toBe(201)
+        expect(response.statusCode).toBe(200)
         expect(response.body).toEqual(request.body)
     })
 

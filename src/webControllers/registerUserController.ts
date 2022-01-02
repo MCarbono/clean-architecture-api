@@ -2,7 +2,7 @@ import { UserData } from "@/entities";
 import { UseCase } from "@/useCases/ports";
 import { MissingParamError } from "./errors/missingParamError";
 import { HttpRequest, HttpResponse } from "./ports";
-import { badRequest, created, serverError } from "./util";
+import { badRequest, created, ok, serverError } from "./util";
 
 export class RegisterAndSendEmailController {
     private readonly useCase: UseCase
@@ -23,7 +23,7 @@ export class RegisterAndSendEmailController {
             const response = await this.useCase.perform(userData)
             
             if(response.isLeft()) return badRequest(response.value)
-            return created(response.value)
+            return ok(response.value)
         } catch(error){
             return serverError(error)
         }
